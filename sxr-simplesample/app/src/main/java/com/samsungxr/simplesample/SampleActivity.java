@@ -25,8 +25,17 @@ import com.samsungxr.SXRMain;
 import com.samsungxr.SXRScene;
 import com.samsungxr.SXRNode;
 import com.samsungxr.SXRTexture;
+import com.samsungxr.mixedreality.SXRAnchor;
+import com.samsungxr.mixedreality.SXRHitResult;
+import com.samsungxr.mixedreality.SXRMixedReality;
+import com.samsungxr.mixedreality.SXRPlane;
+import com.samsungxr.mixedreality.SXRTrackingState;
+import com.samsungxr.mixedreality.IAnchorEvents;
+import com.samsungxr.mixedreality.IMixedReality;
+import com.samsungxr.mixedreality.IPlaneEvents;
 
 public class SampleActivity extends SXRActivity {
+    private static SXRMixedReality mixedReality;
 
     @Override
     protected void onCreate(Bundle icicle) {
@@ -51,6 +60,10 @@ public class SampleActivity extends SXRActivity {
 
             // add the scene object to the scene graph
             scene.addNode(sceneObject);
+
+            mixedReality = new SXRMixedReality(scene);
+            mixedReality.resume();
+
         }
     }
 }
