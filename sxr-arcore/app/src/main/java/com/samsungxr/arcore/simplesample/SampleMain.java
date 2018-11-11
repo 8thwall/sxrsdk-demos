@@ -173,8 +173,8 @@ public class SampleMain extends SXRMain {
         @Override
         public void onStartPlaneDetection(IMixedReality mr)
         {
+            Log.d(TAG, "onStartPlaneDetection, 8thWallJava");
             float screenDepth = mr.getScreenDepth();
-            mr.getPassThroughObject().getEventReceiver().addListener(mTouchHandler);
             helper.initCursorController(mSXRContext, mTouchHandler, screenDepth);
         }
 
@@ -190,6 +190,7 @@ public class SampleMain extends SXRMain {
         @Override
         public void onPlaneDetected(SXRPlane plane)
         {
+            Log.d(TAG, "onPlaneDetected, 8thWallJava");
             if (plane.getPlaneType() == SXRPlane.Type.VERTICAL)
             {
                 return;
@@ -199,8 +200,19 @@ public class SampleMain extends SXRMain {
 
             plane.getCenterPose(pose);
             planeMesh.attachComponent(plane);
+
+            try
+            {
+                SXRNode andy = load3dModel(getSXRContext());
+                planeMesh.addChildObject(andy);
+            }
+            catch (IOException ex)
+            {
+                ex.printStackTrace();
+                Log.e(TAG, ex.getMessage());
+            }
+
             mainScene.addNode(planeMesh);
-            addVirtualObject(pose);
         }
 
         /**
